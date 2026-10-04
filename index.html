@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>IRIS Learning Portal</title>
+
+    <meta name="theme-color" content="#6C4AB6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #6C4AB6;
+            --dark-purple: #4B2E83;
+            --light-purple: #F2EEFB;
+            --lighter-purple: #FAF8FE;
+            --text: #252238;
+            --muted: #777389;
+            --white: #ffffff;
+            --border: #E8E2F2;
+            --green: #20A36A;
+            --shadow: 0 12px 35px rgba(70, 43, 120, 0.10);
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+            background: var(--lighter-purple);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* =========================
+           LOGIN SCREEN
+        ========================= */
+
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background:
+                radial-gradient(circle at top left, #e9ddff 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #ddd0fa 0%, transparent 35%),
+                #f8f6fc;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 15px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #7B55C9, #4B2E83);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(75, 46, 131, 0.25);
+        }
+
+        .brand h1 {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .login-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 28px 23px;
+            box-shadow: var(--shadow);
+        }
+
+        .login-card h2 {
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+
+        .login-card .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 23px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper span {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 52px;
+            padding: 0 14px 0 45px;
+            border: 1px solid #ddd7e8;
+            border-radius: 13px;
+            outline: none;
+            font-size: 15px;
+            background: #fcfbfe;
+            transition: 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.10);
+        }
+
+        .login-button {
+            width: 100%;
+            height: 54px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #7551C3, #4B2E83);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+            box-shadow: 0 8px 20px rgba(75, 46, 131, 0.20);
+        }
+
+        .login-button:active {
+            transform: scale(0.98);
+        }
+
+        .error {
+            display: none;
+            background: #FFF0F0;
+            color: #C0392B;
+            border: 1px solid #FFD5D5;
+            border-radius: 10px;
+            padding: 11px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .login-footer {
+            text-align: center;
+            color: #9994A8;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        /* =========================
+           PORTAL
+        ========================= */
+
+        #portal {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 17px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topbar-inner {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .portal-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .small-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7551C3, #4B2E83);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .portal-brand strong {
+            font-size: 16px;
+        }
+
+        .portal-brand small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .logout {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 22px 16px 45px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        .welcome h1 {
+            font-size: 27px;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* LIVE CARD */
+
+        .live-card {
+            background: linear-gradient(135deg, #6540AD, #432878);
+            color: white;
+            border-radius: 25px;
+            padding: 25px 21px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(75, 46, 131, 0.25);
+            margin-bottom: 20px;
+        }
+
+        .live-card::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 35px solid rgba(255,255,255,0.06);
+            right: -50px;
+            top: -45px;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.15);
+            padding: 7px 11px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #66E6A8;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #66E6A8;
+        }
+
+        .live-card h2 {
+            font-size: 25px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .live-card p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.80);
+            line-height: 1.5;
+            max-width: 500px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .join-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: 100%;
+            min-height: 56px;
+            margin-top: 20px;
+            background: white;
+            color: #4B2E83;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 15px;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: 0.2s;
+        }
+
+        .join-button:active {
+            transform: scale(0.98);
+        }
+
+        /* INFORMATION GRID */
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin: 25px 0 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 17px;
+            box-shadow: 0 5px 18px rgba(70,43,120,0.04);
+        }
+
+        .info-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--light-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .chat-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 47px;
+            border-radius: 12px;
+            background: var(--light-purple);
+            color: var(--dark-purple);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            margin-top: 13px;
+        }
+
+        /* MEETING DETAILS */
+
+        .meeting-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .meeting-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 17px;
+            border-bottom: 1px solid #eeeaf3;
+        }
+
+        .meeting-row:last-child {
+            border-bottom: none;
+        }
+
+        .meeting-label {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .meeting-value {
+            font-weight: 700;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .copy-btn {
+            border: none;
+            background: var(--light-purple);
+            color: var(--dark-purple);
+            padding: 5px 8px;
+            border-radius: 7px;
+            margin-left: 5px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #9994A8;
+            font-size: 11px;
+        }
+
+        /* DESKTOP */
+
+        @media (min-width: 700px) {
+
+            .main {
+                padding-top: 35px;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .live-card {
+                padding: 32px;
+            }
+
+            .join-button {
+                max-width: 360px;
+            }
+
+            .welcome h1 {
+                font-size: 32px;
+            }
+        }
+
+        /* VERY SMALL PHONES */
+
+        @media (max-width: 350px) {
+
+            .login-card {
+                padding: 23px 17px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .live-card h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
+<section id="loginScreen">
+
+    <div class="login-container">
+
+        <div class="brand">
+            <div class="logo">IRIS</div>
+            <h1>IRIS Learning Portal</h1>
+            <p>Your classroom starts here.</p>
+        </div>
+
+        <div class="login-card">
+
+            <h2>Welcome back 👋</h2>
+            <p class="subtitle">
+                Sign in to access your learning session.
+            </p>
+
+            <div id="errorMessage" class="error">
+                Incorrect username or password.
+            </div>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+
+                    <div class="input-wrapper">
+                        <span>👤</span>
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+
+                    <div class="input-wrapper">
+                        <span>🔒</span>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button">
+                    Sign In
+                </button>
+
+            </form>
+
+            <div class="login-footer">
+                IRIS Language Academy
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LEARNING PORTAL
+===================================================== -->
+
+<section id="portal">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-inner">
+
+            <div class="portal-brand">
+
+                <div class="small-logo">
+                    IRIS
+                </div>
+
+                <div>
+                    <strong>Learning Portal</strong>
+                    <small>Student Area</small>
+                </div>
+
+            </div>
+
+            <button class="logout" onclick="logout()">
+                Log out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <div class="welcome">
+
+            <h1>Welcome, Student 👋</h1>
+
+            <p>
+                Your live classroom is ready. Join your teacher below.
+            </p>
+
+        </div>
+
+
+        <!-- LIVE SESSION -->
+
+        <div class="live-card">
+
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                LIVE CLASSROOM
+            </div>
+
+            <h2>
+                Join your live session
+            </h2>
+
+            <p>
+                Your teacher is waiting for you in the Zoom classroom.
+                Click the button below to enter the live session.
+            </p>
+
+            <a
+                class="join-button"
+                href="https://us05web.zoom.us/j/81944370625?pwd=ZAOiafMdvMuFAkC2kvY7WaaqazackN.1"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                🎥 &nbsp; Join Live Session
+            </a>
+
+        </div>
+
+
+        <!-- QUICK ACCESS -->
+
+        <div class="section-title">
+            Quick Access
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    💬
+                </div>
+
+                <h3>
+                    Meeting Chat
+                </h3>
+
+                <p>
+                    Open the Zoom meeting chat to communicate during your session.
+                </p>
+
+                <a
+                    class="chat-button"
+                    href="https://us05web.zoom.us/launch/jc/81944370625"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open Meeting Chat
+                </a>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    Your Live Class
+                </h3>
+
+                <p>
+                    Join the scheduled Zoom classroom directly from this portal.
+                </p>
+
+                <a
+                    class="chat-button"
+                    href="https://us05web.zoom.us/j/81944370625?pwd=ZAOiafMdvMuFAkC2kvY7WaaqazackN.1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Enter Classroom
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEETING DETAILS -->
+
+        <div class="section-title">
+            Meeting Information
+        </div>
+
+        <div class="meeting-card">
+
+            <div class="meeting-row">
+
+                <div class="meeting-label">
+                    Meeting ID
+                </div>
+
+                <div class="meeting-value">
+                    819 4437 0625
+                    <button
+                        class="copy-btn"
+                        onclick="copyText('819 4437 0625')"
+                    >
+                        Copy
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="meeting-row">
+
+                <div class="meeting-label">
+                    Passcode
+                </div>
+
+                <div class="meeting-value">
+                    7G6ZfN
+                    <button
+                        class="copy-btn"
+                        onclick="copyText('7G6ZfN')"
+                    >
+                        Copy
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="meeting-row">
+
+                <div class="meeting-label">
+                    Platform
+                </div>
+
+                <div class="meeting-value">
+                    Zoom
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            © 2026 IRIS Language Academy
+            <br>
+            Learn. Communicate. Progress.
+        </div>
+
+    </main>
+
+</section>
+
+
+<script>
+
+    /* ============================================
+       LOGIN DETAILS
+    ============================================ */
+
+    const VALID_USERNAME = "student";
+    const VALID_PASSWORD = "IRIS2026";
+
+
+    /* ============================================
+       ELEMENTS
+    ============================================ */
+
+    const loginScreen = document.getElementById("loginScreen");
+    const portal = document.getElementById("portal");
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+
+    /* ============================================
+       LOGIN
+    ============================================ */
+
+    loginForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("username").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        if (
+            username === VALID_USERNAME &&
+            password === VALID_PASSWORD
+        ) {
+
+            errorMessage.style.display = "none";
+
+            loginScreen.style.display = "none";
+            portal.style.display = "block";
+
+            sessionStorage.setItem(
+                "irisLoggedIn",
+                "true"
+            );
+
+            window.scrollTo(0, 0);
+
+        } else {
+
+            errorMessage.style.display = "block";
+
+        }
+
+    });
+
+
+    /* ============================================
+       LOGOUT
+    ============================================ */
+
+    function logout() {
+
+        sessionStorage.removeItem("irisLoggedIn");
+
+        portal.style.display = "none";
+        loginScreen.style.display = "flex";
+
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+
+    }
+
+
+    /* ============================================
+       KEEP STUDENT LOGGED IN DURING SESSION
+    ============================================ */
+
+    if (
+        sessionStorage.getItem("irisLoggedIn") === "true"
+    ) {
+
+        loginScreen.style.display = "none";
+        portal.style.display = "block";
+
+    }
+
+
+    /* ============================================
+       COPY BUTTON
+    ============================================ */
+
+    function copyText(text) {
+
+        navigator.clipboard.writeText(text)
+            .then(function() {
+
+                alert("Copied: " + text);
+
+            })
+            .catch(function() {
+
+                alert("Copy failed. Please copy it manually.");
+
+            });
+
+    }
+
+</script>
+
+</body>
+</html>
