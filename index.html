@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>IRIS Learning Portal</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
 
     <meta name="theme-color" content="#6C4AB6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
+    <title>IRIS Learning Portal</title>
+
     <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,28 +28,32 @@
 
         :root {
             --purple: #6C4AB6;
-            --dark-purple: #4B2E83;
-            --light-purple: #F2EEFB;
-            --lighter-purple: #FAF8FE;
-            --text: #252238;
-            --muted: #777389;
-            --white: #ffffff;
-            --border: #E8E2F2;
-            --green: #20A36A;
-            --shadow: 0 12px 35px rgba(70, 43, 120, 0.10);
+            --dark-purple: #432878;
+            --purple-2: #8A63D2;
+            --light-purple: #F3EFFB;
+            --background: #FAF8FD;
+            --text: #272238;
+            --muted: #7D778C;
+            --border: #E7E1F0;
+            --white: #FFFFFF;
+        }
+
+        html {
+            min-height: 100%;
         }
 
         body {
+            min-height: 100vh;
             font-family:
                 -apple-system,
                 BlinkMacSystemFont,
                 "Segoe UI",
                 Roboto,
+                Helvetica,
                 Arial,
                 sans-serif;
-            background: var(--lighter-purple);
+            background: var(--background);
             color: var(--text);
-            min-height: 100vh;
         }
 
         button,
@@ -48,9 +61,10 @@
             font-family: inherit;
         }
 
-        /* =========================
+
+        /* =========================================
            LOGIN SCREEN
-        ========================= */
+        ========================================= */
 
         #loginScreen {
             min-height: 100vh;
@@ -58,10 +72,19 @@
             align-items: center;
             justify-content: center;
             padding: 22px;
+
             background:
-                radial-gradient(circle at top left, #e9ddff 0%, transparent 35%),
-                radial-gradient(circle at bottom right, #ddd0fa 0%, transparent 35%),
-                #f8f6fc;
+                radial-gradient(
+                    circle at 10% 10%,
+                    #E9DEFC 0,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    #DED0F5 0,
+                    transparent 35%
+                ),
+                #F9F7FC;
         }
 
         .login-container {
@@ -69,44 +92,70 @@
             max-width: 420px;
         }
 
+
+        /* BRAND */
+
         .brand {
             text-align: center;
             margin-bottom: 25px;
         }
 
         .logo {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 15px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, #7B55C9, #4B2E83);
-            color: white;
+            width: 76px;
+            height: 76px;
+
+            margin: 0 auto 16px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            font-weight: 800;
-            box-shadow: 0 10px 25px rgba(75, 46, 131, 0.25);
+
+            border-radius: 23px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8A63D2,
+                    #432878
+                );
+
+            color: white;
+
+            font-size: 27px;
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            box-shadow:
+                0 12px 28px rgba(67, 40, 120, 0.25);
         }
 
         .brand h1 {
             font-size: 27px;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
         }
 
         .brand p {
-            margin-top: 6px;
+            margin-top: 7px;
             color: var(--muted);
             font-size: 14px;
         }
 
+
+        /* LOGIN CARD */
+
         .login-card {
             background: white;
+
             border: 1px solid var(--border);
-            border-radius: 25px;
+
+            border-radius: 26px;
+
             padding: 28px 23px;
-            box-shadow: var(--shadow);
+
+            box-shadow:
+                0 15px 40px rgba(67, 40, 120, 0.10);
         }
 
         .login-card h2 {
@@ -114,11 +163,14 @@
             margin-bottom: 6px;
         }
 
-        .login-card .subtitle {
+        .subtitle {
             color: var(--muted);
             font-size: 14px;
             margin-bottom: 23px;
         }
+
+
+        /* INPUTS */
 
         .input-group {
             margin-bottom: 16px;
@@ -126,8 +178,10 @@
 
         .input-group label {
             display: block;
+
             font-size: 13px;
             font-weight: 700;
+
             margin-bottom: 7px;
         }
 
@@ -135,91 +189,159 @@
             position: relative;
         }
 
-        .input-wrapper span {
+        .input-icon {
             position: absolute;
+
             left: 14px;
             top: 50%;
+
             transform: translateY(-50%);
+
             font-size: 18px;
         }
 
         .input-wrapper input {
             width: 100%;
-            height: 52px;
-            padding: 0 14px 0 45px;
-            border: 1px solid #ddd7e8;
+            height: 53px;
+
+            padding:
+                0 14px 0 45px;
+
+            border:
+                1px solid #DDD7E8;
+
             border-radius: 13px;
+
             outline: none;
+
+            background: #FCFBFE;
+
             font-size: 15px;
-            background: #fcfbfe;
+
             transition: 0.2s;
         }
 
         .input-wrapper input:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.10);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(108, 74, 182, 0.10);
         }
+
+
+        /* LOGIN BUTTON */
 
         .login-button {
             width: 100%;
             height: 54px;
+
             border: none;
             border-radius: 14px;
-            background: linear-gradient(135deg, #7551C3, #4B2E83);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7956C6,
+                    #432878
+                );
+
             color: white;
+
             font-size: 16px;
             font-weight: 700;
+
             cursor: pointer;
+
             margin-top: 5px;
-            box-shadow: 0 8px 20px rgba(75, 46, 131, 0.20);
+
+            box-shadow:
+                0 9px 22px
+                rgba(67, 40, 120, 0.22);
+
+            transition: 0.2s;
         }
 
         .login-button:active {
             transform: scale(0.98);
         }
 
+
+        /* ERROR */
+
         .error {
             display: none;
+
             background: #FFF0F0;
+
             color: #C0392B;
-            border: 1px solid #FFD5D5;
+
+            border:
+                1px solid #FFD5D5;
+
             border-radius: 10px;
+
             padding: 11px;
+
             margin-bottom: 15px;
+
             font-size: 13px;
+
             text-align: center;
         }
+
+
+        /* FOOTER */
 
         .login-footer {
             text-align: center;
-            color: #9994A8;
+
+            color: #9B96A9;
+
             font-size: 12px;
+
             margin-top: 20px;
         }
 
-        /* =========================
+
+        /* =========================================
            PORTAL
-        ========================= */
+        ========================================= */
 
         #portal {
             display: none;
             min-height: 100vh;
         }
 
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
+
         .topbar {
-            background: white;
-            border-bottom: 1px solid var(--border);
-            padding: 14px 17px;
             position: sticky;
             top: 0;
-            z-index: 20;
+            z-index: 50;
+
+            background: rgba(255,255,255,0.96);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom:
+                1px solid var(--border);
+
+            padding: 13px 17px;
         }
 
         .topbar-inner {
             max-width: 1000px;
+
             margin: auto;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
         }
 
@@ -230,258 +352,414 @@
         }
 
         .small-logo {
-            width: 40px;
-            height: 40px;
+            width: 41px;
+            height: 41px;
+
             border-radius: 12px;
-            background: linear-gradient(135deg, #7551C3, #4B2E83);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7956C6,
+                    #432878
+                );
+
             color: white;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+
+            font-size: 13px;
+            font-weight: 900;
         }
 
         .portal-brand strong {
+            display: block;
+
             font-size: 16px;
         }
 
         .portal-brand small {
             display: block;
+
             color: var(--muted);
+
             font-size: 11px;
+
             margin-top: 2px;
         }
 
         .logout {
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
+
             background: white;
+
             color: var(--text);
+
             border-radius: 10px;
-            padding: 9px 12px;
+
+            padding:
+                9px 12px;
+
             font-size: 12px;
+
             font-weight: 600;
+
             cursor: pointer;
         }
 
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
         .main {
             max-width: 1000px;
+
             margin: auto;
-            padding: 22px 16px 45px;
+
+            padding:
+                25px 16px 45px;
         }
 
+
+        /* WELCOME */
+
         .welcome {
-            margin-bottom: 20px;
+            margin-bottom: 21px;
         }
 
         .welcome h1 {
-            font-size: 27px;
-            letter-spacing: -0.5px;
+            font-size: 28px;
+
+            letter-spacing: -0.7px;
         }
 
         .welcome p {
-            color: var(--muted);
-            font-size: 14px;
             margin-top: 6px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+            line-height: 1.5;
         }
 
-        /* LIVE CARD */
+
+        /* =========================================
+           LIVE SESSION CARD
+        ========================================= */
 
         .live-card {
-            background: linear-gradient(135deg, #6540AD, #432878);
-            color: white;
-            border-radius: 25px;
-            padding: 25px 21px;
             position: relative;
+
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(75, 46, 131, 0.25);
-            margin-bottom: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7050BC 0%,
+                    #432878 100%
+                );
+
+            color: white;
+
+            border-radius: 27px;
+
+            padding: 27px 21px;
+
+            box-shadow:
+                0 18px 40px
+                rgba(67, 40, 120, 0.25);
+
+            margin-bottom: 22px;
+        }
+
+
+        /* Decorative circles */
+
+        .live-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            border-radius: 50%;
+
+            border:
+                35px solid
+                rgba(255,255,255,0.06);
+
+            right: -65px;
+            top: -60px;
         }
 
         .live-card::after {
             content: "";
+
             position: absolute;
-            width: 170px;
-            height: 170px;
+
+            width: 100px;
+            height: 100px;
+
             border-radius: 50%;
-            border: 35px solid rgba(255,255,255,0.06);
-            right: -50px;
-            top: -45px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            left: -35px;
+            bottom: -40px;
         }
 
+
+        /* LIVE BADGE */
+
         .live-badge {
+            position: relative;
+            z-index: 2;
+
             display: inline-flex;
+
             align-items: center;
+
             gap: 7px;
-            background: rgba(255,255,255,0.15);
-            padding: 7px 11px;
+
+            padding:
+                7px 11px;
+
             border-radius: 50px;
+
+            background:
+                rgba(255,255,255,0.14);
+
             font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 15px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.4px;
+
+            margin-bottom: 16px;
         }
 
         .live-dot {
             width: 8px;
             height: 8px;
-            background: #66E6A8;
+
             border-radius: 50%;
-            box-shadow: 0 0 10px #66E6A8;
+
+            background: #6CE6A8;
+
+            box-shadow:
+                0 0 11px #6CE6A8;
         }
 
+
+        /* TITLE */
+
         .live-card h2 {
-            font-size: 25px;
-            line-height: 1.2;
-            margin-bottom: 8px;
             position: relative;
             z-index: 2;
+
+            font-size: 26px;
+
+            line-height: 1.18;
+
+            margin-bottom: 8px;
+
+            letter-spacing: -0.5px;
         }
 
         .live-card p {
-            font-size: 14px;
-            color: rgba(255,255,255,0.80);
-            line-height: 1.5;
-            max-width: 500px;
             position: relative;
             z-index: 2;
+
+            color:
+                rgba(255,255,255,0.82);
+
+            font-size: 14px;
+
+            line-height: 1.55;
+
+            max-width: 560px;
         }
 
-        .join-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            width: 100%;
-            min-height: 56px;
-            margin-top: 20px;
-            background: white;
-            color: #4B2E83;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 15px;
+
+        /* =========================================
+           BEAUTIFUL GOOGLE MEET BUTTON
+        ========================================= */
+
+        .meet-button {
             position: relative;
-            z-index: 5;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transition: 0.2s;
+            z-index: 10;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            width: 100%;
+
+            min-height: 62px;
+
+            margin-top: 22px;
+
+            padding:
+                0 18px;
+
+            background: white;
+
+            color: #432878;
+
+            text-decoration: none;
+
+            border-radius: 17px;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.17);
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease;
         }
 
-        .join-button:active {
-            transform: scale(0.98);
+        .meet-button:hover {
+            box-shadow:
+                0 13px 30px
+                rgba(0,0,0,0.22);
         }
 
-        /* INFORMATION GRID */
+        .meet-button:active {
+            transform: scale(0.975);
+        }
+
+
+        /* MEET ICON */
+
+        .meet-icon {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8D6BD1,
+                    #5B3BA0
+                );
+
+            color: white;
+
+            font-size: 17px;
+
+            box-shadow:
+                0 5px 12px
+                rgba(67,40,120,0.20);
+        }
+
+
+        /* =========================================
+           SIMPLE INFORMATION CARD
+        ========================================= */
 
         .section-title {
             font-size: 17px;
-            font-weight: 800;
-            margin: 25px 0 12px;
-        }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            font-weight: 800;
+
+            margin:
+                27px 0 12px;
         }
 
         .info-card {
             background: white;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 17px;
-            box-shadow: 0 5px 18px rgba(70,43,120,0.04);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 19px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(70,43,120,0.04);
         }
 
         .info-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: var(--light-purple);
+            width: 43px;
+            height: 43px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                var(--light-purple);
+
             font-size: 20px;
+
             margin-bottom: 12px;
         }
 
         .info-card h3 {
-            font-size: 14px;
-            margin-bottom: 5px;
+            font-size: 15px;
+
+            margin-bottom: 6px;
         }
 
         .info-card p {
             color: var(--muted);
+
             font-size: 13px;
-            line-height: 1.5;
-            word-break: break-word;
+
+            line-height: 1.55;
         }
 
-        .chat-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 47px;
-            border-radius: 12px;
-            background: var(--light-purple);
-            color: var(--dark-purple);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
-            margin-top: 13px;
-        }
 
-        /* MEETING DETAILS */
-
-        .meeting-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            overflow: hidden;
-        }
-
-        .meeting-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 15px 17px;
-            border-bottom: 1px solid #eeeaf3;
-        }
-
-        .meeting-row:last-child {
-            border-bottom: none;
-        }
-
-        .meeting-label {
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        .meeting-value {
-            font-weight: 700;
-            font-size: 13px;
-            text-align: right;
-        }
-
-        .copy-btn {
-            border: none;
-            background: var(--light-purple);
-            color: var(--dark-purple);
-            padding: 5px 8px;
-            border-radius: 7px;
-            margin-left: 5px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        /* FOOTER */
+        /* =========================================
+           FOOTER
+        ========================================= */
 
         .footer {
             text-align: center;
-            padding: 25px 15px;
-            color: #9994A8;
+
+            padding:
+                27px 15px;
+
+            color: #9B96A9;
+
             font-size: 11px;
+
+            line-height: 1.6;
         }
 
-        /* DESKTOP */
+
+        /* =========================================
+           DESKTOP
+        ========================================= */
 
         @media (min-width: 700px) {
 
@@ -489,24 +767,24 @@
                 padding-top: 35px;
             }
 
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .welcome h1 {
+                font-size: 33px;
             }
 
             .live-card {
-                padding: 32px;
+                padding: 34px;
             }
 
-            .join-button {
-                max-width: 360px;
+            .meet-button {
+                max-width: 390px;
             }
 
-            .welcome h1 {
-                font-size: 32px;
-            }
         }
 
-        /* VERY SMALL PHONES */
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
 
         @media (max-width: 350px) {
 
@@ -519,16 +797,24 @@
             }
 
             .live-card h2 {
-                font-size: 22px;
+                font-size: 23px;
             }
+
+            .meet-button {
+                font-size: 14px;
+            }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
+
 <!-- =====================================================
-     LOGIN SCREEN
+     LOGIN
 ===================================================== -->
 
 <section id="loginScreen">
@@ -536,29 +822,58 @@
     <div class="login-container">
 
         <div class="brand">
-            <div class="logo">IRIS</div>
-            <h1>IRIS Learning Portal</h1>
-            <p>Your classroom starts here.</p>
+
+            <div class="logo">
+                IRIS
+            </div>
+
+            <h1>
+                IRIS Learning Portal
+            </h1>
+
+            <p>
+                Your classroom starts here.
+            </p>
+
         </div>
+
 
         <div class="login-card">
 
-            <h2>Welcome back 👋</h2>
+            <h2>
+                Welcome back 👋
+            </h2>
+
             <p class="subtitle">
-                Sign in to access your learning session.
+                Sign in to access your live classroom.
             </p>
 
-            <div id="errorMessage" class="error">
+
+            <div
+                id="errorMessage"
+                class="error"
+            >
                 Incorrect username or password.
             </div>
 
+
             <form id="loginForm">
 
+
+                <!-- USERNAME -->
+
                 <div class="input-group">
-                    <label for="username">Username</label>
+
+                    <label for="username">
+                        Username
+                    </label>
 
                     <div class="input-wrapper">
-                        <span>👤</span>
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
                         <input
                             type="text"
                             id="username"
@@ -566,14 +881,26 @@
                             autocomplete="username"
                             required
                         >
+
                     </div>
+
                 </div>
 
+
+                <!-- PASSWORD -->
+
                 <div class="input-group">
-                    <label for="password">Password</label>
+
+                    <label for="password">
+                        Password
+                    </label>
 
                     <div class="input-wrapper">
-                        <span>🔒</span>
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
                         <input
                             type="password"
                             id="password"
@@ -581,14 +908,24 @@
                             autocomplete="current-password"
                             required
                         >
+
                     </div>
+
                 </div>
 
-                <button type="submit" class="login-button">
+
+                <!-- LOGIN -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
                     Sign In
                 </button>
 
+
             </form>
+
 
             <div class="login-footer">
                 IRIS Language Academy
@@ -601,17 +938,20 @@
 </section>
 
 
+
 <!-- =====================================================
-     LEARNING PORTAL
+     STUDENT PORTAL
 ===================================================== -->
 
 <section id="portal">
+
 
     <!-- TOP BAR -->
 
     <header class="topbar">
 
         <div class="topbar-inner">
+
 
             <div class="portal-brand">
 
@@ -620,314 +960,298 @@
                 </div>
 
                 <div>
-                    <strong>Learning Portal</strong>
-                    <small>Student Area</small>
+
+                    <strong>
+                        Learning Portal
+                    </strong>
+
+                    <small>
+                        Student Area
+                    </small>
+
                 </div>
 
             </div>
 
-            <button class="logout" onclick="logout()">
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
                 Log out
             </button>
+
 
         </div>
 
     </header>
 
 
-    <!-- MAIN CONTENT -->
+
+    <!-- MAIN -->
 
     <main class="main">
 
+
+        <!-- WELCOME -->
+
         <div class="welcome">
 
-            <h1>Welcome, Student 👋</h1>
+            <h1>
+                Welcome, Student 👋
+            </h1>
 
             <p>
-                Your live classroom is ready. Join your teacher below.
+                Your live classroom is ready.
+                Join your teacher below.
             </p>
 
         </div>
 
 
-        <!-- LIVE SESSION -->
+
+        <!-- =========================================
+             LIVE CLASSROOM
+        ========================================== -->
 
         <div class="live-card">
 
+
             <div class="live-badge">
+
                 <span class="live-dot"></span>
+
                 LIVE CLASSROOM
+
             </div>
 
+
             <h2>
-                Join your live session
+                Your live session is ready
             </h2>
 
+
             <p>
-                Your teacher is waiting for you in the Zoom classroom.
-                Click the button below to enter the live session.
+                Click the button below to enter your
+                live class with your teacher.
             </p>
 
+
+            <!-- GOOGLE MEET -->
+
             <a
-                class="join-button"
-                href="https://us05web.zoom.us/j/81944370625?pwd=ZAOiafMdvMuFAkC2kvY7WaaqazackN.1"
+                class="meet-button"
+                href="https://meet.google.com/nxf-iokt-dth"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                🎥 &nbsp; Join Live Session
+
+                <span class="meet-icon">
+                    ▶
+                </span>
+
+                <span>
+                    Join Live Session
+                </span>
+
             </a>
 
+
         </div>
 
 
-        <!-- QUICK ACCESS -->
+
+        <!-- =========================================
+             INFORMATION
+        ========================================== -->
 
         <div class="section-title">
-            Quick Access
-        </div>
-
-        <div class="info-grid">
-
-            <div class="info-card">
-
-                <div class="info-icon">
-                    💬
-                </div>
-
-                <h3>
-                    Meeting Chat
-                </h3>
-
-                <p>
-                    Open the Zoom meeting chat to communicate during your session.
-                </p>
-
-                <a
-                    class="chat-button"
-                    href="https://us05web.zoom.us/launch/jc/81944370625"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Open Meeting Chat
-                </a>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <div class="info-icon">
-                    👨‍🏫
-                </div>
-
-                <h3>
-                    Your Live Class
-                </h3>
-
-                <p>
-                    Join the scheduled Zoom classroom directly from this portal.
-                </p>
-
-                <a
-                    class="chat-button"
-                    href="https://us05web.zoom.us/j/81944370625?pwd=ZAOiafMdvMuFAkC2kvY7WaaqazackN.1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Enter Classroom
-                </a>
-
-            </div>
-
+            Your Classroom
         </div>
 
 
-        <!-- MEETING DETAILS -->
+        <div class="info-card">
 
-        <div class="section-title">
-            Meeting Information
+            <div class="info-icon">
+                👨‍🏫
+            </div>
+
+            <h3>
+                Live lesson with your teacher
+            </h3>
+
+            <p>
+                Use the button above whenever it is time
+                for your live lesson. Your teacher will
+                welcome you inside the virtual classroom.
+            </p>
+
         </div>
 
-        <div class="meeting-card">
-
-            <div class="meeting-row">
-
-                <div class="meeting-label">
-                    Meeting ID
-                </div>
-
-                <div class="meeting-value">
-                    819 4437 0625
-                    <button
-                        class="copy-btn"
-                        onclick="copyText('819 4437 0625')"
-                    >
-                        Copy
-                    </button>
-                </div>
-
-            </div>
-
-
-            <div class="meeting-row">
-
-                <div class="meeting-label">
-                    Passcode
-                </div>
-
-                <div class="meeting-value">
-                    7G6ZfN
-                    <button
-                        class="copy-btn"
-                        onclick="copyText('7G6ZfN')"
-                    >
-                        Copy
-                    </button>
-                </div>
-
-            </div>
-
-
-            <div class="meeting-row">
-
-                <div class="meeting-label">
-                    Platform
-                </div>
-
-                <div class="meeting-value">
-                    Zoom
-                </div>
-
-            </div>
-
-        </div>
 
 
         <!-- FOOTER -->
 
         <div class="footer">
+
             © 2026 IRIS Language Academy
+
             <br>
+
             Learn. Communicate. Progress.
+
         </div>
+
 
     </main>
 
 </section>
 
 
+
 <script>
 
-    /* ============================================
-       LOGIN DETAILS
-    ============================================ */
+
+    /* =========================================
+       LOGIN CREDENTIALS
+    ========================================= */
 
     const VALID_USERNAME = "student";
+
     const VALID_PASSWORD = "IRIS2026";
 
 
-    /* ============================================
+    /* =========================================
        ELEMENTS
-    ============================================ */
+    ========================================= */
 
-    const loginScreen = document.getElementById("loginScreen");
-    const portal = document.getElementById("portal");
-    const loginForm = document.getElementById("loginForm");
-    const errorMessage = document.getElementById("errorMessage");
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    const portal =
+        document.getElementById("portal");
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
 
 
-    /* ============================================
+    /* =========================================
        LOGIN
-    ============================================ */
+    ========================================= */
 
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const username =
-            document.getElementById("username").value.trim();
 
-        const password =
-            document.getElementById("password").value;
+            const username =
+                document
+                .getElementById("username")
+                .value
+                .trim();
 
-        if (
-            username === VALID_USERNAME &&
-            password === VALID_PASSWORD
-        ) {
 
-            errorMessage.style.display = "none";
+            const password =
+                document
+                .getElementById("password")
+                .value;
 
-            loginScreen.style.display = "none";
-            portal.style.display = "block";
 
-            sessionStorage.setItem(
-                "irisLoggedIn",
-                "true"
-            );
+            if (
+                username === VALID_USERNAME &&
+                password === VALID_PASSWORD
+            ) {
 
-            window.scrollTo(0, 0);
+                errorMessage.style.display = "none";
 
-        } else {
 
-            errorMessage.style.display = "block";
+                loginScreen.style.display =
+                    "none";
+
+
+                portal.style.display =
+                    "block";
+
+
+                sessionStorage.setItem(
+                    "irisLoggedIn",
+                    "true"
+                );
+
+
+                window.scrollTo(
+                    0,
+                    0
+                );
+
+
+            } else {
+
+                errorMessage.style.display =
+                    "block";
+
+            }
 
         }
+    );
 
-    });
 
-
-    /* ============================================
+    /* =========================================
        LOGOUT
-    ============================================ */
+    ========================================= */
 
     function logout() {
 
-        sessionStorage.removeItem("irisLoggedIn");
+        sessionStorage.removeItem(
+            "irisLoggedIn"
+        );
 
-        portal.style.display = "none";
-        loginScreen.style.display = "flex";
 
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
+        portal.style.display =
+            "none";
+
+
+        loginScreen.style.display =
+            "flex";
+
+
+        document
+            .getElementById("username")
+            .value = "";
+
+
+        document
+            .getElementById("password")
+            .value = "";
 
     }
 
 
-    /* ============================================
-       KEEP STUDENT LOGGED IN DURING SESSION
-    ============================================ */
+    /* =========================================
+       RESTORE SESSION
+    ========================================= */
 
     if (
-        sessionStorage.getItem("irisLoggedIn") === "true"
+        sessionStorage.getItem(
+            "irisLoggedIn"
+        ) === "true"
     ) {
 
-        loginScreen.style.display = "none";
-        portal.style.display = "block";
+        loginScreen.style.display =
+            "none";
 
-    }
-
-
-    /* ============================================
-       COPY BUTTON
-    ============================================ */
-
-    function copyText(text) {
-
-        navigator.clipboard.writeText(text)
-            .then(function() {
-
-                alert("Copied: " + text);
-
-            })
-            .catch(function() {
-
-                alert("Copy failed. Please copy it manually.");
-
-            });
+        portal.style.display =
+            "block";
 
     }
 
 </script>
+
 
 </body>
 </html>
